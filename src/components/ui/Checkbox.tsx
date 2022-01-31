@@ -1,12 +1,14 @@
 import React, { ChangeEvent, FC } from "react";
 import classNames from "classnames";
+import { FilterValuesType } from "../../models/Filter";
 
 interface ICheckboxProps {
   title: string;
-  onChange: (value: string | number) => void;
+  onChange: (value: FilterValuesType) => void;
   className?: string;
   disabled?: boolean;
-  value: string | number;
+  value: FilterValuesType;
+  checked: boolean;
 }
 
 const Checkbox: FC<ICheckboxProps> = ({
@@ -15,9 +17,10 @@ const Checkbox: FC<ICheckboxProps> = ({
   className,
   disabled,
   onChange,
+  checked,
 }) => {
   const handlerChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
+    onChange(event.target.value as FilterValuesType);
   };
 
   return (
@@ -28,6 +31,7 @@ const Checkbox: FC<ICheckboxProps> = ({
         onChange={handlerChange}
         className="checkbox__input"
         disabled={disabled}
+        checked={checked}
       />
       <span className="checkbox__box">
         <svg

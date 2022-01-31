@@ -25,8 +25,9 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  padding: 3.125rem 0;
   &__header {
-    padding: 3.125rem 0;
+    padding: 0 0 3.125rem 0;
   }
   &__content {
     flex: 1 1 auto;
@@ -45,7 +46,7 @@ body {
   width: 90%;
   margin: 0 auto;
   &__leftside {
-    flex: 0 0 14.5rem;
+    flex: 0 0 25%;
   }
   &__rightside {
     flex: 1 1 auto;
@@ -115,5 +116,47 @@ body {
   }
 }
 
+.ticket-list {
+}
+
 .ticket {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+  &__price {
+    font-size: 1.5rem;
+    color: $blue;
+  }
+  &__company {
+    width: 6.875rem;
+    height: 2.25rem;
+    img {
+      max-width: 100%;
+    }
+  }
+  &__info {
+    display: flex;
+  }
+  &__column {
+    flex: 1 1 33.333%;
+  }
+  &__item {
+    margin-bottom: 0.625rem;
+  }
+  &__item-title {
+    color: $gray;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+  &__item-value {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    line-height: 1.31rem;
+  }
 }

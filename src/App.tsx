@@ -1,5 +1,5 @@
 import React from "react";
-import { Filter, Header, Tabs, Ticket } from "./components";
+import { Filter, Header, Tabs, TicketsList } from "./components";
 import "./scss/index.scss";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         </div>
         <div className="content__rightside">
           <Tabs />
-          <Ticket />
+          <TicketsList />
         </div>
       </div>
     </div>

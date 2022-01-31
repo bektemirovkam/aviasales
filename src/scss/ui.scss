@@ -8,6 +8,12 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  &:focus {
+    outline: 1px solid $gray;
+  }
+  &:active {
+    opacity: 0.9;
+  }
 }
 
 .checkbox {

@@ -10,7 +10,7 @@ const Tabs: FC<ITabsProps> = ({}) => {
   };
 
   return (
-    <fieldset onChange={(e) => console.log(e.currentTarget)} className="tabs">
+    <fieldset className="tabs">
       <label>
         <input
           className="tabs__input"
