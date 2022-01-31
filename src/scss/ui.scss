@@ -1,0 +1,74 @@
+.btn {
+  background-color: $blue;
+  color: $white;
+  text-transform: uppercase;
+  border-radius: 5px;
+  height: 3.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 400;
+  transition: all 0.2s ease-in;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8rem;
+  &:hover {
+    background-color: $hover;
+  }
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+  }
+  .checkbox__input:checked + .checkbox__box {
+    border-color: $blue;
+    svg {
+      opacity: 1;
+    }
+  }
+  .checkbox__input:focus + .checkbox__box {
+    outline: 1px solid $gray;
+  }
+  .checkbox__input:disabled:checked + .checkbox__box {
+    border-color: $gray;
+    svg {
+      path {
+        fill: $gray;
+      }
+    }
+  }
+  .checkbox__input:disabled + .checkbox__box {
+    border-color: $gray;
+  }
+  &__box {
+    width: 1.2rem;
+    height: 1.25rem;
+    border: 1px solid $blueGray;
+    margin-right: 0.625rem;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      opacity: 0;
+      transition: opacity 0.2s ease-in;
+    }
+  }
+}
+
+.card {
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: 2px 0px 8px 0px rgba(0, 0, 0, 0.1);
+}
