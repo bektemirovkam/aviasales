@@ -1,12 +1,14 @@
-import React, { FC, useState, ChangeEvent } from "react";
+import React, { FC, ChangeEvent } from "react";
+import { TabsValuesType } from "../models/Filter";
 
-interface ITabsProps {}
+interface ITabsProps {
+  tabValue: TabsValuesType;
+  setTabValue: (value: TabsValuesType) => void;
+}
 
-const Tabs: FC<ITabsProps> = ({}) => {
-  const [value, setValue] = useState("Самый дешевый");
-
+const Tabs: FC<ITabsProps> = ({ tabValue, setTabValue }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setTabValue(event.target.value as TabsValuesType);
   };
 
   return (
@@ -18,7 +20,7 @@ const Tabs: FC<ITabsProps> = ({}) => {
           value="Самый дешевый"
           name="tab"
           onChange={handleChange}
-          checked={value === "Самый дешевый"}
+          checked={tabValue === "Самый дешевый"}
         />
         <span className="tabs__text">Самый дешевый</span>
       </label>
@@ -30,7 +32,7 @@ const Tabs: FC<ITabsProps> = ({}) => {
           value="Самый быстрый"
           name="tab"
           onChange={handleChange}
-          checked={value === "Самый быстрый"}
+          checked={tabValue === "Самый быстрый"}
         />
         <span className="tabs__text">Самый быстрый</span>
       </label>
@@ -42,7 +44,7 @@ const Tabs: FC<ITabsProps> = ({}) => {
           value="Оптимальный"
           name="tab"
           onChange={handleChange}
-          checked={value === "Оптимальный"}
+          checked={tabValue === "Оптимальный"}
         />
         <span className="tabs__text">Оптимальный</span>
       </label>

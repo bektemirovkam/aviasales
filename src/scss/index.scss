@@ -32,6 +32,14 @@ body {
   &__content {
     flex: 1 1 auto;
   }
+  &__error {
+    padding: 1rem 0;
+    text-align: center;
+    span {
+      color: $red;
+      text-transform: uppercase;
+    }
+  }
 }
 
 .header {
@@ -117,6 +125,22 @@ body {
 }
 
 .ticket-list {
+  &__preloader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+  &__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    span {
+      text-transform: uppercase;
+      color: $red;
+    }
+  }
 }
 
 .ticket {
@@ -141,11 +165,16 @@ body {
   }
   &__info {
     display: flex;
+    flex-wrap: wrap;
   }
-  &__column {
-    flex: 1 1 33.333%;
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1 1 100%;
   }
   &__item {
+    flex: 1 1 33.333%;
     margin-bottom: 0.625rem;
   }
   &__item-title {
@@ -155,8 +184,17 @@ body {
     line-height: 1.125rem;
   }
   &__item-value {
-    text-transform: uppercase;
     font-size: 0.875rem;
     line-height: 1.31rem;
+    span {
+      &::after {
+        content: ", ";
+      }
+      &:last-child {
+        &::after {
+          content: "";
+        }
+      }
+    }
   }
 }

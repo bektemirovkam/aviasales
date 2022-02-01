@@ -1,6 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 
-const Header = () => {
+interface IHeaderProps {
+  ticketsLoading: boolean;
+}
+
+const Header: FC<IHeaderProps> = ({ ticketsLoading }) => {
   return (
     <header className="main__header header">
       <div className="header__logo">

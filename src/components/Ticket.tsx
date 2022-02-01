@@ -1,52 +1,67 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { Card } from "./ui";
-import logo from "../assets/logo.png";
+import { ITicket } from "../models/Search";
+import {
+  formatDate,
+  getCorrectVariant,
+  getEndTravelTime,
+  getTimeFromMins,
+} from "../utils/formatter";
 
-interface ITicketProps {}
+interface ITicketProps {
+  ticket: ITicket;
+}
 
-const Ticket: FC<ITicketProps> = () => {
+const Ticket: FC<ITicketProps> = ({ ticket }) => {
   return (
     <Card className="ticket">
       <div className="ticket__header">
-        <div className="ticket__price">13 400 P</div>
+        <div className="ticket__price">{ticket.price} P</div>
         <div className="ticket__company">
-          <img src={logo} alt="" />
+          <img src={`//pics.avs.io/99/36/${ticket.carrier}.png`} alt="" />
         </div>
       </div>
       <div className="ticket__info">
-        <div className="ticket__column">
-          <div className="ticket__item">
-            <div className="ticket__item-title">MOW – HKT</div>
-            <div className="ticket__item-value">10:45 – 08:00</div>
-          </div>
-          <div className="ticket__item">
-            <div className="ticket__item-title">MOW – HKT</div>
-            <div className="ticket__item-value">11:20 – 00:50</div>
-          </div>
-        </div>
-        <div className="ticket__column">
-          <div className="ticket__item">
-            <div className="ticket__item-title">В пути</div>
-            <div className="ticket__item-value">21ч 15м</div>
-          </div>
-          <div className="ticket__item">
-            <div className="ticket__item-title">В пути</div>
-            <div className="ticket__item-value">13ч 30м</div>
-          </div>
-        </div>
-        <div className="ticket__column">
-          <div className="ticket__item">
-            <div className="ticket__item-title">2 пересадки</div>
-            <div className="ticket__item-value">HKG, JNB</div>
-          </div>
-          <div className="ticket__item">
-            <div className="ticket__item-title">1 пересадка</div>
-            <div className="ticket__item-value">HKT</div>
-          </div>
-        </div>
+        {ticket.segments.map((segment) => {
+          return (
+            <div className="ticket__row">
+              <div className="ticket__item">
+                <div className="ticket__item-title">
+                  {segment.origin} – {segment.destination}
+                </div>
+                <div className="ticket__item-value">
+                  {`${formatDate(segment.date)} - ${getEndTravelTime(
+                    segment.date,
+                    segment.duration
+                  )}`}
+                </div>
+              </div>
+              <div className="ticket__item">
+                <div className="ticket__item-title">В пути</div>
+                <div className="ticket__item-value">
+                  {getTimeFromMins(segment.duration)}
+                </div>
+              </div>
+              <div className="ticket__item">
+                <div className="ticket__item-title">
+                  {segment.stops.length > 0
+                    ? `${segment.stops.length} ${getCorrectVariant(
+                        segment.stops.length
+                      )}`
+                    : "без пересадок"}
+                </div>
+                <div className="ticket__item-value">
+                  {segment.stops.map((stop) => {
+                    return <span>{stop}</span>;
+                  })}
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </Card>
   );
 };
 
-export default Ticket;
+export default memo(Ticket);
