@@ -24,6 +24,9 @@
   transition: all 0.2s ease-in;
   padding: 0.625rem 1.25rem;
   font-size: 0.8rem;
+  @media (max-width: 768px) {
+    padding: 0.4rem 1rem;
+  }
   &:hover {
     background-color: $hover;
   }

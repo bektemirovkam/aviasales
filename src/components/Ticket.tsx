@@ -24,7 +24,10 @@ const Ticket: FC<ITicketProps> = ({ ticket }) => {
       <div className="ticket__info">
         {ticket.segments.map((segment) => {
           return (
-            <div className="ticket__row">
+            <div
+              className="ticket__row"
+              key={`${segment.date}_${segment.duration}`}
+            >
               <div className="ticket__item">
                 <div className="ticket__item-title">
                   {segment.origin} – {segment.destination}
@@ -51,8 +54,8 @@ const Ticket: FC<ITicketProps> = ({ ticket }) => {
                     : "без пересадок"}
                 </div>
                 <div className="ticket__item-value">
-                  {segment.stops.map((stop) => {
-                    return <span>{stop}</span>;
+                  {segment.stops.map((stop, index) => {
+                    return <span key={`${stop}_${index}`}>{stop}</span>;
                   })}
                 </div>
               </div>

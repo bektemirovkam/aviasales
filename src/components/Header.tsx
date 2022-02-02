@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { FC } from "react";
 
 interface IHeaderProps {
@@ -7,7 +8,11 @@ interface IHeaderProps {
 const Header: FC<IHeaderProps> = ({ ticketsLoading }) => {
   return (
     <header className="main__header header">
-      <div className="header__logo">
+      <div
+        className={classNames("header__logo", {
+          "header__logo--loading": ticketsLoading,
+        })}
+      >
         <svg
           width="82"
           height="89"

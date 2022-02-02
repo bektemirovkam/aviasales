@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Filter, Header, Tabs, TicketsList } from "./components";
-import { IFilter, TabsValuesType } from "./models/Filter";
+import { FilterValuesType, IFilter, TabsValuesType } from "./models/Filter";
 import "./scss/index.scss";
 import searchAPI from "./services/search";
 
 function App() {
   const [filter, setFilter] = useState<IFilter>({
-    "0": false,
-    "1": false,
-    "2": false,
-    "3": false,
-    all: false,
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    all: true,
   });
   const [tabValue, setTabValue] = useState<TabsValuesType>("Самый дешевый");
   const [idLoadingError, setIdLoadingError] = useState<string | null>(null);

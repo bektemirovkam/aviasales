@@ -1,7 +1,9 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { IFilter, TabsValuesType } from "../models/Filter";
 import { ITicket } from "../models/Search";
 import searchAPI from "../services/search";
+import { getFilteredTickets } from "../utils/filter";
+import { getSortedTickets } from "../utils/sorter";
 import Ticket from "./Ticket";
 import { AppButton } from "./ui";
 
@@ -25,16 +27,21 @@ const TicketsList: FC<ITicketsListProps> = ({
   const getTickets = useCallback(
     async (searchId: string) => {
       try {
+        setLoadingError(null);
         setTicketsLoading(true);
         const { tickets, stop } = await searchAPI.getTickets(searchId);
-
-        // if (stop) {
         setTickets(tickets);
-        // }
+        if (!stop) {
+          setTimeout(() => {
+            getTickets(searchId);
+          }, 3000);
+        } else {
+          setTicketsLoading(false);
+        }
       } catch (error) {
         setLoadingError("Произошла ошибка!");
-      } finally {
         setTicketsLoading(false);
+        await getTickets(searchId);
       }
     },
     [setTicketsLoading]
@@ -50,20 +57,30 @@ const TicketsList: FC<ITicketsListProps> = ({
     setShowTicketCounter((prev) => prev + 5);
   };
 
+  const filteredTickets = useMemo(() => {
+    const filteredTickets = getFilteredTickets(tickets, filter);
+    return getSortedTickets(filteredTickets, tabValue).slice(
+      0,
+      showTicketsCounter
+    );
+  }, [showTicketsCounter, filter, tabValue, tickets]);
+
   return (
     <div className="ticket-list">
-      {loadingError ? (
+      {loadingError && (
         <div className="ticket-list__error">
           <span>{loadingError}</span>
         </div>
-      ) : (
-        <>
-          {tickets.slice(0, showTicketsCounter).map((ticket) => (
-            <Ticket ticket={ticket} key={`${ticket.carrier}_${ticket.price}`} />
-          ))}
-          <AppButton title="Показать еще 5 билетов" onClick={addTickets} />
-        </>
       )}
+      <>
+        {filteredTickets.map((ticket) => (
+          <Ticket
+            ticket={ticket}
+            key={`${ticket.segments[0].date}_${ticket.segments[1].date}`}
+          />
+        ))}
+        <AppButton title="Показать еще 5 билетов" onClick={addTickets} />
+      </>
     </div>
   );
 };
